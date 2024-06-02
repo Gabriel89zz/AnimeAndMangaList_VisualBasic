@@ -22,24 +22,41 @@
     End Property
 
     Protected _price As Double
-    Public Property Price As Double
-        Set(value As Double)
-            _price = value
-        End Set
+
+    ' Propiedad de solo lectura
+    Public ReadOnly Property Price As Double
         Get
             Return _price
         End Get
     End Property
 
+    ' Constructor sin parámetros
     Public Sub New()
-        _volume = 0
-        _editorial = ""
-        _price = 0
+        Volume = 0
+        Editorial = ""
+        _price = DeterminePrice()
     End Sub
 
-    Public Sub New(chaptersnumber As Integer, editorial As String, price As Double)
-        _volume = chaptersnumber
+    ' Constructor con parámetros
+    Public Sub New(volume As Integer, editorial As String)
+        _volume = volume
         _editorial = editorial
-        _price = price
+        _price = DeterminePrice()
     End Sub
+
+    ' Método privado para determinar el precio
+    Private Function DeterminePrice() As Double
+        Select Case _editorial
+            Case "Panini"
+                Return 145
+            Case "Norma"
+                Return 139
+            Case "Kamite"
+                Return 189
+            Case "Ivrea"
+                Return 120
+            Case Else
+                Return 100
+        End Select
+    End Function
 End Class

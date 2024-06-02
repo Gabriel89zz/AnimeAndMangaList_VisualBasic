@@ -35,8 +35,10 @@ Partial Class Form1
         ' btnAddManga
         ' 
         btnAddManga.BackColor = Color.DarkOrchid
+        btnAddManga.Cursor = Cursors.Hand
         btnAddManga.FlatAppearance.BorderSize = 0
-        btnAddManga.FlatAppearance.MouseDownBackColor = Color.Black
+        btnAddManga.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnAddManga.FlatAppearance.MouseOverBackColor = Color.Black
         btnAddManga.FlatStyle = FlatStyle.Flat
         btnAddManga.Font = New Font("Microsoft Tai Le", 20.25F, FontStyle.Bold)
         btnAddManga.ForeColor = SystemColors.ControlLightLight
@@ -50,8 +52,10 @@ Partial Class Form1
         ' btnAddAnime
         ' 
         btnAddAnime.BackColor = Color.DarkOrchid
+        btnAddAnime.Cursor = Cursors.Hand
         btnAddAnime.FlatAppearance.BorderSize = 0
-        btnAddAnime.FlatAppearance.MouseDownBackColor = Color.Black
+        btnAddAnime.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnAddAnime.FlatAppearance.MouseOverBackColor = Color.Black
         btnAddAnime.FlatStyle = FlatStyle.Flat
         btnAddAnime.Font = New Font("Microsoft Tai Le", 20.25F, FontStyle.Bold)
         btnAddAnime.ForeColor = SystemColors.ControlLightLight

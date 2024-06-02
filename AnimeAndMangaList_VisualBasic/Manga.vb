@@ -21,11 +21,15 @@ Public Class Manga
 
     'PROPIEADAD DE SOLO LECTURA
     Private _author As String
-    Public ReadOnly Property Author As String Implements IJapaneseWork.Author
+    Public Property Author As String Implements IJapaneseWork.Author
         Get
             Return _author
         End Get
+        Set(ByVal value As String)
+            _author = value
+        End Set
     End Property
+
 
     Private _genre As String
     Public Property Genre As String Implements IJapaneseWork.Genre
@@ -68,8 +72,8 @@ Public Class Manga
     End Sub
 
     'CONSTRUCTOR CON PARAMETROS
-    Public Sub New(title As String, autor As String, genre As String, releaseyear As Date, chaptersnumber As Integer, editorial As String, rating As Integer, price As Double)
-        MyBase.New(chaptersnumber, editorial, price)
+    Public Sub New(title As String, autor As String, genre As String, releaseyear As Date, chaptersnumber As Integer, editorial As String, rating As Integer)
+        MyBase.New(chaptersnumber, editorial)
         _title = title
         _author = autor
         _genre = genre
@@ -77,27 +81,27 @@ Public Class Manga
         _rating = rating
     End Sub
 
-    'Polimorfimso
     Public Overrides Function ToString() As String
         Return "Title: " & _title & ", Author: " & _author & ", Genre: " & _genre & ", Acquisition Date: " & _releaseyear.ToString() & ", Volume: " & _volume.ToString().ToString() & ", Editorial: " + _editorial.ToString() & ", Price: " + _price.ToString() & ", Rating:" + _rating.ToString()
     End Function
     'METODO  QUE REGRESA Y RECIBE
-    Public Shared Function GetStats(mangas As Manga()) As String
+    Public Shared Function GetStatsManga(mangas As Manga()) As String
         Dim sumPrice As Double = 0
+        Dim Kamite As Integer = 0
+        Dim Panini As Integer = 0
+        Dim Ivrea As Integer = 0
+        Dim Norma As Integer = 0
+        Dim shonen As Integer = 0
+        Dim seinen As Integer = 0
+        Dim comedy As Integer = 0
+        Dim scifi As Integer = 0
+        Dim romcom As Integer = 0
+        Dim isekai As Integer = 0
+
         For Each manga As Manga In mangas
             If manga IsNot Nothing Then
-                sumPrice += manga.price
-            End If
-        Next
-
-        Dim Kamite = 0
-        Dim Panini = 0
-        Dim Ivrea = 0
-        Dim Norma = 0
-
-        For Each manga In mangas
-            If manga IsNot Nothing Then
-                Select Case manga.editorial
+                sumPrice += manga.Price
+                Select Case manga.Editorial
                     Case "Panini"
                         Panini += 1
                     Case "Norma"
@@ -109,177 +113,122 @@ Public Class Manga
                     Case Else
                         Continue For
                 End Select
+
+                Select Case manga.Genre
+                    Case "Shonen"
+                        shonen += 1
+                    Case "Seinen"
+                        seinen += 1
+                    Case "Comedy"
+                        comedy += 1
+                    Case "Sci-Fi"
+                        scifi += 1
+                    Case "Romcom"
+                        romcom += 1
+                    Case "Isekai"
+                        isekai += 1
+                    Case Else
+                        Continue For
+                End Select
             End If
         Next
-        Return "The ost of your collection of mangas: " & Math.Round(sumPrice, 2).ToString() & vbLf & "Mangas by editorial: Panini:" & Panini.ToString() & "Norma: " & Norma.ToString() & " Kamite: " & Kamite.ToString() & " Ivrea: " & Ivrea.ToString()
+
+        Return "The cost of your collection of mangas: " & Math.Round(sumPrice, 2) & " MXN" & vbCrLf & vbCrLf &
+           "Mangas by editorial: " & vbCrLf & "Panini: " & Panini & vbCrLf & "Norma: " & Norma & vbCrLf &
+           "Kamite: " & Kamite & vbCrLf & "Ivrea: " & Ivrea & vbCrLf & vbCrLf &
+           "Mangas by genre: " & vbCrLf & "Shonen: " & shonen & vbCrLf & "Seinen: " & seinen & vbCrLf &
+           "Comedy: " & comedy & vbCrLf & "Sci-Fi: " & scifi & vbCrLf & "Romcom: " & romcom & vbCrLf &
+           "Isekai: " & isekai
     End Function
 
-    ' METODO QUE REGRESA PERO NO RECIBE
-    Public Shared Function GetMangaGenres() As String()
-        Dim MangaGenres = {"Shonen", "Seinen", "Comedy", "Drama", "Sci-Fi", "Romcom", "Slice of Life", "Isekai"}
-        Return MangaGenres
+    Public Function ShowSimilarWorks() As String Implements IJapaneseWork.ShowSimilarWorks
+        Dim similarWorksMessage As String = ""
+
+        Select Case Genre
+            Case "Shonen"
+                Dim shonenGenre As String() = {"One Piece", "Naruto", "Bleach", "Black Clover", "Fairy Tail",
+            "Dragon Ball", "My Hero Academia", "Attack on Titan", "Hunter x Hunter", "Demon Slayer",
+            "One Punch Man", "Haikyuu!!", "Yu Yu Hakusho", "The Seven Deadly Sins", "JoJo's Bizarre Adventure",
+            "Fullmetal Alchemist", "Mob Psycho 100", "Tokyo Ghoul", "Assassination Classroom", "Dragon Ball Z"}
+
+                For i As Integer = 0 To shonenGenre.Length - 1
+                    If _title = shonenGenre(i) Then
+                        shonenGenre(i) = ""
+                    Else
+                        similarWorksMessage &= shonenGenre(i) & vbCrLf
+                    End If
+                Next
+            Case "Seinen"
+                Dim seinenGenre As String() = {"Tokyo Ghoul", "Attack on Titan", "Death Note", "Berserk", "Monster",
+            "Parasyte", "Elfen Lied", "Akira", "Claymore", "Psycho-Pass",
+            "Vinland Saga", "Neon Genesis Evangelion", "The Promised Neverland", "Gantz", "Black Lagoon",
+            "Hellsing", "Vagabond", "Blame!", "Deadman Wonderland", "Dorohedoro"}
+
+                For i As Integer = 0 To seinenGenre.Length - 1
+                    If _title = seinenGenre(i) Then
+                        seinenGenre(i) = ""
+                    Else
+                        similarWorksMessage &= seinenGenre(i) & vbCrLf
+                    End If
+                Next
+            Case "Comedey"
+                Dim comedyGenre As String() = {"Gintama", "Nichijou", "One Punch Man", "Konosuba", "Grand Blue",
+            "Daily Lives of High School Boys", "The Disastrous Life of Saiki K.", "KonoSuba: God's Blessing on This Wonderful World!", "Great Teacher Onizuka", "Arakawa Under the Bridge",
+            "Nichibros", "Prison School", "Danshi Koukousei no Nichijou", "Azumanga Daioh", "K-On!",
+            "Cromartie High School", "Sakamoto desu ga?", "Seto no Hanayome", "Shimoneta", "Lucky Star"}
+
+                For i As Integer = 0 To comedyGenre.Length - 1
+                    If _title = comedyGenre(i) Then
+                        comedyGenre(i) = ""
+                    Else
+                        similarWorksMessage &= comedyGenre(i) & vbCrLf
+                    End If
+                Next
+            Case "Sci-Fi"
+                Dim scifiGenre As String() = {"Steins;Gate", "Ghost in the Shell", "Cowboy Bebop", "Neon Genesis Evangelion", "Psycho-Pass",
+            "Serial Experiments Lain", "Trigun", "Planetes", "Aldnoah.Zero", "Ergo Proxy",
+            "Legend of the Galactic Heroes", "Texhnolyze", "No. 6", "Outlaw Star", "Space Dandy",
+            "Astra Lost in Space", "Mobile Suit Gundam", "Robotech", "Armitage III", "Blue Gender"}
+
+                For i As Integer = 0 To scifiGenre.Length - 1
+                    If _title = scifiGenre(i) Then
+                        scifiGenre(i) = ""
+                    Else
+                        similarWorksMessage &= scifiGenre(i) & vbCrLf
+                    End If
+                Next
+            Case "Romcom"
+                Dim romcomGenre As String() = {"Toradora!", "My Youth Romantic Comedy Is Wrong, As I Expected", "Love, Chunibyo & Other Delusions", "Nisekoi", "Golden Time",
+            "Ore Monogatari!!", "Sakurasou no Pet na Kanojo", "Clannad", "Lovely★Complex", "Kaguya-sama: Love is War",
+            "The Pet Girl of Sakurasou", "Monthly Girls' Nozaki-kun", "The Quintessential Quintuplets", "My Little Monster", "School Rumble",
+            "Love Hina", "Kimi ni Todoke", "Tonikaku Kawaii", "Ouran High School Host Club", "Kaichou wa Maid-sama!"}
+
+                For i As Integer = 0 To romcomGenre.Length - 1
+                    If _title = romcomGenre(i) Then
+                        romcomGenre(i) = ""
+                    Else
+                        similarWorksMessage &= romcomGenre(i) & vbCrLf
+                    End If
+                Next
+            Case "Isekai"
+                Dim isekaiGenre As String() = {"Re:Zero", "Sword Art Online", "Overlord", "The Rising of the Shield Hero", "Log Horizon",
+            "No Game No Life", "That Time I Got Reincarnated as a Slime", "Konosuba", "The Devil is a Part-Timer!", "Grimgar, Ashes and Illusions",
+            "In Another World with My Smartphone", "The Saga of Tanya the Evil", "The Familiar of Zero", "Gate: Thus the JSDF Fought There!", "Isekai Quartet",
+            "Accel World", "Problem Children Are Coming from Another World, Aren't They?", "Digimon Adventure", "Restaurant to Another World", "How Not to Summon a Demon Lord"}
+
+                For i As Integer = 0 To isekaiGenre.Length - 1
+                    If _title = isekaiGenre(i) Then
+                        isekaiGenre(i) = ""
+                    Else
+                        similarWorksMessage &= isekaiGenre(i) & vbCrLf
+                    End If
+                Next
+            Case Else
+                Return "Genre not specified"
+        End Select
+
+        Return similarWorksMessage
     End Function
 
-    'METODO QUE RECIBE PERO NO REGRESA
-    Public Shared Sub ExportMangaToJson(filePath As String, mangas As Manga())
-        Dim filteredMangas As Manga() = Array.FindAll(mangas, Function(m) m IsNot Nothing)
-        Dim json As String = JsonConvert.SerializeObject(filteredMangas, Newtonsoft.Json.Formatting.Indented)
-        File.WriteAllText(filePath, json)
-    End Sub
 
-    Public Shared Sub ExportMangaToXml(filePath As String, mangas As Manga())
-        Dim doc As XmlDocument = New XmlDocument()
-        Dim root As XmlElement = doc.CreateElement("Mangas")
-        doc.AppendChild(root)
-
-        For Each manga In mangas.Where(Function(m) m IsNot Nothing)
-            Dim mangaElement As XmlElement = doc.CreateElement("Manga")
-
-            Dim titleElement As XmlElement = doc.CreateElement("Title")
-            titleElement.InnerText = manga.Title
-            mangaElement.AppendChild(titleElement)
-
-            Dim authorElement As XmlElement = doc.CreateElement("Author")
-            authorElement.InnerText = manga.Author
-            mangaElement.AppendChild(authorElement)
-
-            Dim genreElement As XmlElement = doc.CreateElement("Genre")
-            genreElement.InnerText = manga.Genre
-            mangaElement.AppendChild(genreElement)
-
-            Dim releaseYearElement As XmlElement = doc.CreateElement("ReleaseYear")
-            releaseYearElement.InnerText = manga.ReleaseYear.ToShortDateString()
-            mangaElement.AppendChild(releaseYearElement)
-
-            Dim volumeElement As XmlElement = doc.CreateElement("Volume")
-            volumeElement.InnerText = manga.volume.ToString()
-            mangaElement.AppendChild(volumeElement)
-
-            Dim editorialElement As XmlElement = doc.CreateElement("Editorial")
-            editorialElement.InnerText = manga.editorial
-            mangaElement.AppendChild(editorialElement)
-
-            Dim ratingElement As XmlElement = doc.CreateElement("Rating")
-            ratingElement.InnerText = manga.Rating.ToString()
-            mangaElement.AppendChild(ratingElement)
-
-            Dim priceElement As XmlElement = doc.CreateElement("Price")
-            priceElement.InnerText = manga.price.ToString()
-            mangaElement.AppendChild(priceElement)
-
-            root.AppendChild(mangaElement)
-        Next
-
-        doc.Save(filePath)
-
-    End Sub
-    Public Shared Sub ExportMangaToExcel(filePath As String, mangas As Manga())
-        Using workbook = New XLWorkbook()
-            Dim worksheet = workbook.Worksheets.Add("Mangas")
-
-            worksheet.Cell(1, 1).Value = "Title"
-            worksheet.Cell(1, 2).Value = "Author"
-            worksheet.Cell(1, 3).Value = "Genre"
-            worksheet.Cell(1, 4).Value = "ReleaseYear"
-            worksheet.Cell(1, 5).Value = "Volume"
-            worksheet.Cell(1, 6).Value = "Editorial"
-            worksheet.Cell(1, 7).Value = "Rating"
-            worksheet.Cell(1, 8).Value = "Price"
-
-            Dim rowIndex = 2
-
-            For Each manga In mangas.Where(Function(m) m IsNot Nothing)
-                worksheet.Cell(rowIndex, 1).Value = manga.Title
-                worksheet.Cell(rowIndex, 2).Value = manga.Author
-                worksheet.Cell(rowIndex, 3).Value = manga.Genre
-                worksheet.Cell(rowIndex, 4).Value = manga.ReleaseYear.ToShortDateString()
-                worksheet.Cell(rowIndex, 5).Value = manga.volume
-                worksheet.Cell(rowIndex, 6).Value = manga.editorial
-                worksheet.Cell(rowIndex, 7).Value = manga.Rating
-                worksheet.Cell(rowIndex, 8).Value = manga.price
-
-                rowIndex += 1
-            Next
-
-            workbook.SaveAs(filePath)
-        End Using
-    End Sub
-
-
-    Public Shared Sub ExportMangaToWord(filePath As String, mangas As Manga())
-        Using document = DocX.Create(filePath)
-            document.InsertParagraph("Manga List").FontSize(15).Bold().Alignment = Alignment.center
-
-            Dim mangaCount = mangas.Count(Function(m) m IsNot Nothing)
-            Dim table = document.AddTable(mangaCount + 1, 8)
-
-            table.Rows(0).Cells(0).Paragraphs(0).Append("Title")
-            table.Rows(0).Cells(1).Paragraphs(0).Append("Author")
-            table.Rows(0).Cells(2).Paragraphs(0).Append("Genre")
-            table.Rows(0).Cells(3).Paragraphs(0).Append("ReleaseYear")
-            table.Rows(0).Cells(4).Paragraphs(0).Append("Volume")
-            table.Rows(0).Cells(5).Paragraphs(0).Append("Editorial")
-            table.Rows(0).Cells(6).Paragraphs(0).Append("Rating")
-            table.Rows(0).Cells(7).Paragraphs(0).Append("Price")
-
-            Dim rowIndex = 1
-            For Each manga In mangas.Where(Function(m) m IsNot Nothing)
-                table.Rows(rowIndex).Cells(0).Paragraphs(0).Append(manga.Title)
-                table.Rows(rowIndex).Cells(1).Paragraphs(0).Append(manga.Author)
-                table.Rows(rowIndex).Cells(2).Paragraphs(0).Append(manga.Genre)
-                table.Rows(rowIndex).Cells(3).Paragraphs(0).Append(manga.ReleaseYear.ToShortDateString())
-                table.Rows(rowIndex).Cells(4).Paragraphs(0).Append(manga.volume.ToString())
-                table.Rows(rowIndex).Cells(5).Paragraphs(0).Append(manga.editorial)
-                table.Rows(rowIndex).Cells(6).Paragraphs(0).Append(manga.Rating.ToString())
-                table.Rows(rowIndex).Cells(7).Paragraphs(0).Append(manga.price.ToString())
-                rowIndex += 1
-            Next
-
-            document.InsertTable(table)
-            document.Save()
-        End Using
-
-    End Sub
-
-    Public Shared Sub ExportMangaToTxt(filePath As String, mangas As Manga())
-        Using writer As StreamWriter = New StreamWriter(filePath)
-            For Each manga In mangas.Where(Function(m) m IsNot Nothing)
-                writer.WriteLine(manga.ToString())
-            Next
-        End Using
-    End Sub
-
-    Public Shared Sub LoadMangaDataFromTextFile(filePath As String, mangas As Manga(), lstvData As ListView)
-        Try
-            Dim lines = File.ReadAllLines(filePath)
-
-            For Each line In lines
-                Dim fields = line.Split("|"c)
-
-                Dim emptyIndex = Array.FindIndex(mangas, Function(m) m Is Nothing)
-
-                If emptyIndex = -1 Then
-                    MessageBox.Show("The array is full. You need to delete some entries to add new ones.", "Array Full", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-                    Return
-                End If
-
-                mangas(emptyIndex) = New Manga(fields(0), fields(1), fields(2), Date.Parse(fields(3)), Convert.ToInt32(fields(4)), fields(5), Convert.ToInt32(fields(6)), Convert.ToDouble(fields(7)))
-
-                Dim item As ListViewItem = New ListViewItem(mangas(emptyIndex).Title)
-                item.SubItems.Add(mangas(emptyIndex).Author)
-                item.SubItems.Add(mangas(emptyIndex).Genre)
-                item.SubItems.Add(mangas(emptyIndex).ReleaseYear.ToShortDateString())
-                item.SubItems.Add(mangas(emptyIndex).volume.ToString())
-                item.SubItems.Add(mangas(emptyIndex).editorial)
-                item.SubItems.Add(mangas(emptyIndex).Rating.ToString())
-                item.SubItems.Add(mangas(emptyIndex).price.ToString())
-
-                lstvData.Items.Add(item)
-            Next
-
-            MessageBox.Show("Data loaded successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Catch ex As Exception
-            MessageBox.Show("An error occurred while loading data: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.[Error])
-        End Try
-    End Sub
 End Class

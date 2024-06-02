@@ -4,4 +4,5 @@
     Property Genre As String
     Property ReleaseYear As DateTime
     Property Rating As Integer
+    Function ShowSimilarWorks() As String
 End Interface

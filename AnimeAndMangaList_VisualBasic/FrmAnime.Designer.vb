@@ -22,6 +22,7 @@ Partial Class FrmAnime
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmAnime))
         btnLoadDataAnime = New Button()
         Label9 = New Label()
         txtReviewAnime = New TextBox()
@@ -55,14 +56,17 @@ Partial Class FrmAnime
         btnSaveAnime = New Button()
         btnExportAnime = New Button()
         SaveReviewAnime = New Button()
+        btnSimilarAnimes = New Button()
         CType(nudRatingAnime, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' btnLoadDataAnime
         ' 
         btnLoadDataAnime.BackColor = SystemColors.ActiveCaptionText
+        btnLoadDataAnime.Cursor = Cursors.Hand
         btnLoadDataAnime.FlatAppearance.BorderSize = 0
-        btnLoadDataAnime.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        btnLoadDataAnime.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnLoadDataAnime.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         btnLoadDataAnime.FlatStyle = FlatStyle.Flat
         btnLoadDataAnime.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
         btnLoadDataAnime.ForeColor = SystemColors.ControlLightLight
@@ -87,12 +91,12 @@ Partial Class FrmAnime
         ' 
         ' txtReviewAnime
         ' 
-        txtReviewAnime.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtReviewAnime.Location = New Point(17, 356)
+        txtReviewAnime.Font = New Font("Microsoft Tai Le", 10F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        txtReviewAnime.Location = New Point(23, 360)
         txtReviewAnime.Margin = New Padding(4)
         txtReviewAnime.Multiline = True
         txtReviewAnime.Name = "txtReviewAnime"
-        txtReviewAnime.Size = New Size(294, 216)
+        txtReviewAnime.Size = New Size(317, 188)
         txtReviewAnime.TabIndex = 45
         txtReviewAnime.Text = "Title of Anime:" & vbCrLf & vbCrLf & "Review:"
         ' 
@@ -101,10 +105,10 @@ Partial Class FrmAnime
         lstvDataAnime.Columns.AddRange(New ColumnHeader() {ColumnHeader1, ColumnHeader2, ColumnHeader3, ColumnHeader4, ColumnHeader5, ColumnHeader6, ColumnHeader7, ColumnHeader8})
         lstvDataAnime.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         lstvDataAnime.FullRowSelect = True
-        lstvDataAnime.Location = New Point(348, 311)
+        lstvDataAnime.Location = New Point(355, 296)
         lstvDataAnime.Margin = New Padding(4)
         lstvDataAnime.Name = "lstvDataAnime"
-        lstvDataAnime.Size = New Size(847, 281)
+        lstvDataAnime.Size = New Size(856, 267)
         lstvDataAnime.TabIndex = 44
         lstvDataAnime.UseCompatibleStateImageBehavior = False
         lstvDataAnime.View = View.Details
@@ -150,15 +154,17 @@ Partial Class FrmAnime
         ' btnGetStatsAnime
         ' 
         btnGetStatsAnime.BackColor = SystemColors.ActiveCaptionText
+        btnGetStatsAnime.Cursor = Cursors.Hand
         btnGetStatsAnime.FlatAppearance.BorderSize = 0
-        btnGetStatsAnime.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        btnGetStatsAnime.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnGetStatsAnime.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         btnGetStatsAnime.FlatStyle = FlatStyle.Flat
         btnGetStatsAnime.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
         btnGetStatsAnime.ForeColor = SystemColors.ControlLightLight
-        btnGetStatsAnime.Location = New Point(1050, 223)
+        btnGetStatsAnime.Location = New Point(1073, 147)
         btnGetStatsAnime.Margin = New Padding(4)
         btnGetStatsAnime.Name = "btnGetStatsAnime"
-        btnGetStatsAnime.Size = New Size(105, 58)
+        btnGetStatsAnime.Size = New Size(105, 38)
         btnGetStatsAnime.TabIndex = 43
         btnGetStatsAnime.Text = "Get Cost"
         btnGetStatsAnime.UseVisualStyleBackColor = False
@@ -166,15 +172,17 @@ Partial Class FrmAnime
         ' btnDeleteAnime
         ' 
         btnDeleteAnime.BackColor = SystemColors.ActiveCaptionText
+        btnDeleteAnime.Cursor = Cursors.Hand
         btnDeleteAnime.FlatAppearance.BorderSize = 0
-        btnDeleteAnime.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        btnDeleteAnime.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnDeleteAnime.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         btnDeleteAnime.FlatStyle = FlatStyle.Flat
         btnDeleteAnime.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
         btnDeleteAnime.ForeColor = SystemColors.ControlLightLight
-        btnDeleteAnime.Location = New Point(1050, 139)
+        btnDeleteAnime.Location = New Point(1073, 83)
         btnDeleteAnime.Margin = New Padding(4)
         btnDeleteAnime.Name = "btnDeleteAnime"
-        btnDeleteAnime.Size = New Size(105, 58)
+        btnDeleteAnime.Size = New Size(105, 38)
         btnDeleteAnime.TabIndex = 42
         btnDeleteAnime.Text = "Delete"
         btnDeleteAnime.UseVisualStyleBackColor = False
@@ -182,19 +190,19 @@ Partial Class FrmAnime
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
-        Label5.Location = New Point(582, 262)
+        Label5.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label5.Location = New Point(600, 243)
         Label5.Margin = New Padding(4, 0, 4, 0)
         Label5.Name = "Label5"
-        Label5.Size = New Size(55, 19)
+        Label5.Size = New Size(59, 19)
         Label5.TabIndex = 41
-        Label5.Text = "Rating"
+        Label5.Text = "Rating:"
         ' 
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
-        Label6.Location = New Point(582, 208)
+        Label6.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label6.Location = New Point(600, 187)
         Label6.Margin = New Padding(4, 0, 4, 0)
         Label6.Name = "Label6"
         Label6.Size = New Size(139, 19)
@@ -204,8 +212,8 @@ Partial Class FrmAnime
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
-        Label7.Location = New Point(582, 143)
+        Label7.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label7.Location = New Point(600, 131)
         Label7.Margin = New Padding(4, 0, 4, 0)
         Label7.Name = "Label7"
         Label7.Size = New Size(75, 19)
@@ -215,8 +223,8 @@ Partial Class FrmAnime
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
-        Label8.Location = New Point(582, 89)
+        Label8.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label8.Location = New Point(600, 75)
         Label8.Margin = New Padding(4, 0, 4, 0)
         Label8.Name = "Label8"
         Label8.Size = New Size(156, 19)
@@ -226,8 +234,8 @@ Partial Class FrmAnime
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
-        Label3.Location = New Point(37, 266)
+        Label3.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label3.Location = New Point(38, 244)
         Label3.Margin = New Padding(4, 0, 4, 0)
         Label3.Name = "Label3"
         Label3.Size = New Size(99, 19)
@@ -237,19 +245,19 @@ Partial Class FrmAnime
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
-        Label4.Location = New Point(37, 212)
+        Label4.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label4.Location = New Point(38, 189)
         Label4.Margin = New Padding(4, 0, 4, 0)
         Label4.Name = "Label4"
-        Label4.Size = New Size(51, 19)
+        Label4.Size = New Size(55, 19)
         Label4.TabIndex = 36
-        Label4.Text = "Genre"
+        Label4.Text = "Genre:"
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
-        Label2.Location = New Point(37, 147)
+        Label2.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label2.Location = New Point(38, 134)
         Label2.Margin = New Padding(4, 0, 4, 0)
         Label2.Name = "Label2"
         Label2.Size = New Size(63, 19)
@@ -259,8 +267,8 @@ Partial Class FrmAnime
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
-        Label1.Location = New Point(37, 93)
+        Label1.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label1.Location = New Point(38, 79)
         Label1.Margin = New Padding(4, 0, 4, 0)
         Label1.Name = "Label1"
         Label1.Size = New Size(44, 19)
@@ -269,49 +277,49 @@ Partial Class FrmAnime
         ' 
         ' nudRatingAnime
         ' 
-        nudRatingAnime.Font = New Font("Microsoft Tai Le", 11.25F)
-        nudRatingAnime.Location = New Point(666, 254)
+        nudRatingAnime.Font = New Font("Microsoft Tai Le", 11F)
+        nudRatingAnime.Location = New Point(762, 234)
         nudRatingAnime.Margin = New Padding(4)
         nudRatingAnime.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
         nudRatingAnime.Name = "nudRatingAnime"
-        nudRatingAnime.Size = New Size(49, 27)
+        nudRatingAnime.Size = New Size(49, 26)
         nudRatingAnime.TabIndex = 33
         ' 
         ' cbPlataform
         ' 
-        cbPlataform.Font = New Font("Microsoft Tai Le", 11.25F)
+        cbPlataform.Font = New Font("Microsoft Tai Le", 11F)
         cbPlataform.FormattingEnabled = True
         cbPlataform.Items.AddRange(New Object() {"Crunchyroll", "Netflix", "Disney Plus", "Prime Video"})
-        cbPlataform.Location = New Point(666, 139)
+        cbPlataform.Location = New Point(762, 125)
         cbPlataform.Margin = New Padding(4)
         cbPlataform.Name = "cbPlataform"
-        cbPlataform.Size = New Size(154, 27)
+        cbPlataform.Size = New Size(135, 27)
         cbPlataform.TabIndex = 32
         ' 
         ' txtChaptersAnime
         ' 
-        txtChaptersAnime.Font = New Font("Microsoft Tai Le", 11.25F)
-        txtChaptersAnime.Location = New Point(746, 86)
+        txtChaptersAnime.Font = New Font("Microsoft Tai Le", 11F)
+        txtChaptersAnime.Location = New Point(762, 71)
         txtChaptersAnime.Margin = New Padding(4)
         txtChaptersAnime.Name = "txtChaptersAnime"
-        txtChaptersAnime.Size = New Size(113, 27)
+        txtChaptersAnime.Size = New Size(135, 26)
         txtChaptersAnime.TabIndex = 31
         ' 
         ' dtpDateAnime
         ' 
-        dtpDateAnime.Font = New Font("Microsoft Tai Le", 11.25F)
+        dtpDateAnime.Font = New Font("Microsoft Tai Le", 11F)
         dtpDateAnime.Format = DateTimePickerFormat.Short
-        dtpDateAnime.Location = New Point(229, 259)
+        dtpDateAnime.Location = New Point(230, 238)
         dtpDateAnime.Margin = New Padding(4)
         dtpDateAnime.Name = "dtpDateAnime"
-        dtpDateAnime.Size = New Size(154, 27)
+        dtpDateAnime.Size = New Size(154, 26)
         dtpDateAnime.TabIndex = 30
         ' 
         ' cbGenreAnime
         ' 
-        cbGenreAnime.Font = New Font("Microsoft Tai Le", 11.25F)
+        cbGenreAnime.Font = New Font("Microsoft Tai Le", 11F)
         cbGenreAnime.FormattingEnabled = True
-        cbGenreAnime.Location = New Point(229, 202)
+        cbGenreAnime.Location = New Point(230, 183)
         cbGenreAnime.Margin = New Padding(4)
         cbGenreAnime.Name = "cbGenreAnime"
         cbGenreAnime.Size = New Size(154, 27)
@@ -319,43 +327,45 @@ Partial Class FrmAnime
         ' 
         ' txtAuthorAnime
         ' 
-        txtAuthorAnime.Font = New Font("Microsoft Tai Le", 11.25F)
-        txtAuthorAnime.Location = New Point(229, 143)
+        txtAuthorAnime.Font = New Font("Microsoft Tai Le", 11F)
+        txtAuthorAnime.Location = New Point(230, 129)
         txtAuthorAnime.Margin = New Padding(4)
         txtAuthorAnime.Name = "txtAuthorAnime"
-        txtAuthorAnime.Size = New Size(318, 27)
+        txtAuthorAnime.Size = New Size(318, 26)
         txtAuthorAnime.TabIndex = 28
         ' 
         ' txtProductionStudio
         ' 
-        txtProductionStudio.Font = New Font("Microsoft Tai Le", 11.25F)
-        txtProductionStudio.Location = New Point(729, 202)
+        txtProductionStudio.Font = New Font("Microsoft Tai Le", 11F)
+        txtProductionStudio.Location = New Point(762, 180)
         txtProductionStudio.Margin = New Padding(4)
         txtProductionStudio.Name = "txtProductionStudio"
-        txtProductionStudio.Size = New Size(261, 27)
+        txtProductionStudio.Size = New Size(235, 26)
         txtProductionStudio.TabIndex = 27
         ' 
         ' txtTitleAnime
         ' 
-        txtTitleAnime.Font = New Font("Microsoft Tai Le", 11.25F)
-        txtTitleAnime.Location = New Point(229, 89)
+        txtTitleAnime.Font = New Font("Microsoft Tai Le", 11F)
+        txtTitleAnime.Location = New Point(230, 75)
         txtTitleAnime.Margin = New Padding(4)
         txtTitleAnime.Name = "txtTitleAnime"
-        txtTitleAnime.Size = New Size(318, 27)
+        txtTitleAnime.Size = New Size(318, 26)
         txtTitleAnime.TabIndex = 26
         ' 
         ' btnSaveAnime
         ' 
         btnSaveAnime.BackColor = SystemColors.ActiveCaptionText
+        btnSaveAnime.Cursor = Cursors.Hand
         btnSaveAnime.FlatAppearance.BorderSize = 0
-        btnSaveAnime.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        btnSaveAnime.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnSaveAnime.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         btnSaveAnime.FlatStyle = FlatStyle.Flat
         btnSaveAnime.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
         btnSaveAnime.ForeColor = SystemColors.ControlLightLight
-        btnSaveAnime.Location = New Point(1050, 58)
+        btnSaveAnime.Location = New Point(1073, 19)
         btnSaveAnime.Margin = New Padding(4)
         btnSaveAnime.Name = "btnSaveAnime"
-        btnSaveAnime.Size = New Size(105, 58)
+        btnSaveAnime.Size = New Size(105, 38)
         btnSaveAnime.TabIndex = 25
         btnSaveAnime.Text = "Save"
         btnSaveAnime.UseVisualStyleBackColor = False
@@ -363,12 +373,14 @@ Partial Class FrmAnime
         ' btnExportAnime
         ' 
         btnExportAnime.BackColor = SystemColors.ActiveCaptionText
+        btnExportAnime.Cursor = Cursors.Hand
         btnExportAnime.FlatAppearance.BorderSize = 0
-        btnExportAnime.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        btnExportAnime.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnExportAnime.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         btnExportAnime.FlatStyle = FlatStyle.Flat
         btnExportAnime.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
         btnExportAnime.ForeColor = SystemColors.ControlLightLight
-        btnExportAnime.Location = New Point(1092, 610)
+        btnExportAnime.Location = New Point(1106, 577)
         btnExportAnime.Margin = New Padding(4)
         btnExportAnime.Name = "btnExportAnime"
         btnExportAnime.Size = New Size(96, 29)
@@ -379,12 +391,14 @@ Partial Class FrmAnime
         ' SaveReviewAnime
         ' 
         SaveReviewAnime.BackColor = SystemColors.ActiveCaptionText
+        SaveReviewAnime.Cursor = Cursors.Hand
         SaveReviewAnime.FlatAppearance.BorderSize = 0
-        SaveReviewAnime.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        SaveReviewAnime.FlatAppearance.MouseDownBackColor = Color.Transparent
+        SaveReviewAnime.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         SaveReviewAnime.FlatStyle = FlatStyle.Flat
         SaveReviewAnime.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
         SaveReviewAnime.ForeColor = SystemColors.ControlLightLight
-        SaveReviewAnime.Location = New Point(17, 591)
+        SaveReviewAnime.Location = New Point(27, 567)
         SaveReviewAnime.Margin = New Padding(4)
         SaveReviewAnime.Name = "SaveReviewAnime"
         SaveReviewAnime.Size = New Size(96, 29)
@@ -392,12 +406,31 @@ Partial Class FrmAnime
         SaveReviewAnime.Text = "Save"
         SaveReviewAnime.UseVisualStyleBackColor = False
         ' 
+        ' btnSimilarAnimes
+        ' 
+        btnSimilarAnimes.BackColor = SystemColors.ActiveCaptionText
+        btnSimilarAnimes.Cursor = Cursors.Hand
+        btnSimilarAnimes.FlatAppearance.BorderSize = 0
+        btnSimilarAnimes.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnSimilarAnimes.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
+        btnSimilarAnimes.FlatStyle = FlatStyle.Flat
+        btnSimilarAnimes.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold)
+        btnSimilarAnimes.ForeColor = SystemColors.ControlLightLight
+        btnSimilarAnimes.Location = New Point(1073, 211)
+        btnSimilarAnimes.Margin = New Padding(4)
+        btnSimilarAnimes.Name = "btnSimilarAnimes"
+        btnSimilarAnimes.Size = New Size(105, 51)
+        btnSimilarAnimes.TabIndex = 50
+        btnSimilarAnimes.Text = "Similar Animes"
+        btnSimilarAnimes.UseVisualStyleBackColor = False
+        ' 
         ' FrmAnime
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ControlLightLight
-        ClientSize = New Size(1204, 646)
+        ClientSize = New Size(1233, 619)
+        Controls.Add(btnSimilarAnimes)
         Controls.Add(btnExportAnime)
         Controls.Add(SaveReviewAnime)
         Controls.Add(btnLoadDataAnime)
@@ -424,6 +457,7 @@ Partial Class FrmAnime
         Controls.Add(txtTitleAnime)
         Controls.Add(btnSaveAnime)
         Font = New Font("Segoe UI", 9F)
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Name = "FrmAnime"
         StartPosition = FormStartPosition.CenterScreen
         Text = "FrmAnime"
@@ -465,4 +499,5 @@ Partial Class FrmAnime
     Friend WithEvents btnSaveAnime As Button
     Friend WithEvents btnExportAnime As Button
     Friend WithEvents SaveReviewAnime As Button
+    Friend WithEvents btnSimilarAnimes As Button
 End Class

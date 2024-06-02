@@ -22,6 +22,7 @@ Partial Class FrmManga
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(FrmManga))
         btnSaveManga = New Button()
         txtTitle = New TextBox()
         txtPrice = New TextBox()
@@ -55,86 +56,90 @@ Partial Class FrmManga
         SaveReviewManga = New Button()
         btnExportManga = New Button()
         btnLoadData = New Button()
+        btnSimilarMangas = New Button()
         CType(nudRating, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' btnSaveManga
         ' 
         btnSaveManga.BackColor = SystemColors.ActiveCaptionText
+        btnSaveManga.Cursor = Cursors.Hand
         btnSaveManga.FlatAppearance.BorderSize = 0
-        btnSaveManga.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        btnSaveManga.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnSaveManga.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         btnSaveManga.FlatStyle = FlatStyle.Flat
         btnSaveManga.ForeColor = SystemColors.ControlLightLight
-        btnSaveManga.Location = New Point(1046, 60)
+        btnSaveManga.Location = New Point(1046, 15)
         btnSaveManga.Margin = New Padding(4)
         btnSaveManga.Name = "btnSaveManga"
-        btnSaveManga.Size = New Size(105, 58)
+        btnSaveManga.Size = New Size(105, 38)
         btnSaveManga.TabIndex = 0
         btnSaveManga.Text = "Save"
         btnSaveManga.UseVisualStyleBackColor = False
         ' 
         ' txtTitle
         ' 
-        txtTitle.Font = New Font("Microsoft Tai Le", 11.25F)
-        txtTitle.Location = New Point(225, 91)
+        txtTitle.Font = New Font("Microsoft Tai Le", 11F)
+        txtTitle.Location = New Point(225, 72)
         txtTitle.Margin = New Padding(4)
         txtTitle.Name = "txtTitle"
-        txtTitle.Size = New Size(318, 27)
+        txtTitle.Size = New Size(312, 26)
         txtTitle.TabIndex = 1
         ' 
         ' txtPrice
         ' 
         txtPrice.Font = New Font("Microsoft Tai Le", 11.25F)
-        txtPrice.Location = New Point(662, 202)
+        txtPrice.Location = New Point(662, 225)
         txtPrice.Margin = New Padding(4)
         txtPrice.Name = "txtPrice"
         txtPrice.Size = New Size(318, 27)
         txtPrice.TabIndex = 2
+        txtPrice.Visible = False
         ' 
         ' txtAuthor
         ' 
-        txtAuthor.Font = New Font("Microsoft Tai Le", 11.25F)
-        txtAuthor.Location = New Point(225, 145)
+        txtAuthor.Font = New Font("Microsoft Tai Le", 11F)
+        txtAuthor.Location = New Point(225, 128)
         txtAuthor.Margin = New Padding(4)
         txtAuthor.Name = "txtAuthor"
-        txtAuthor.Size = New Size(318, 27)
+        txtAuthor.Size = New Size(312, 26)
         txtAuthor.TabIndex = 3
         ' 
         ' cbGenre
         ' 
-        cbGenre.Font = New Font("Microsoft Tai Le", 11.25F)
+        cbGenre.Font = New Font("Microsoft Tai Le", 11F)
         cbGenre.FormattingEnabled = True
-        cbGenre.Location = New Point(225, 204)
+        cbGenre.Location = New Point(225, 184)
         cbGenre.Margin = New Padding(4)
         cbGenre.Name = "cbGenre"
-        cbGenre.Size = New Size(154, 27)
+        cbGenre.Size = New Size(177, 27)
         cbGenre.TabIndex = 4
         ' 
         ' dtpDate
         ' 
-        dtpDate.Font = New Font("Microsoft Tai Le", 11.25F)
+        dtpDate.Font = New Font("Microsoft Tai Le", 11F)
         dtpDate.Format = DateTimePickerFormat.Short
-        dtpDate.Location = New Point(225, 261)
+        dtpDate.Location = New Point(225, 241)
         dtpDate.Margin = New Padding(4)
         dtpDate.Name = "dtpDate"
-        dtpDate.Size = New Size(154, 27)
+        dtpDate.Size = New Size(142, 26)
         dtpDate.TabIndex = 5
         ' 
         ' txtChapters
         ' 
-        txtChapters.Font = New Font("Microsoft Tai Le", 11.25F)
-        txtChapters.Location = New Point(662, 91)
+        txtChapters.Font = New Font("Microsoft Tai Le", 11F)
+        txtChapters.Location = New Point(662, 72)
         txtChapters.Margin = New Padding(4)
         txtChapters.Name = "txtChapters"
-        txtChapters.Size = New Size(318, 27)
+        txtChapters.Size = New Size(154, 26)
         txtChapters.TabIndex = 6
         ' 
         ' cbEditorial
         ' 
-        cbEditorial.Font = New Font("Microsoft Tai Le", 11.25F)
+        cbEditorial.Font = New Font("Microsoft Tai Le", 11F)
         cbEditorial.FormattingEnabled = True
         cbEditorial.Items.AddRange(New Object() {"Panini", "Norma", "Ivrea", "Kamite"})
-        cbEditorial.Location = New Point(662, 141)
+        cbEditorial.Location = New Point(662, 122)
         cbEditorial.Margin = New Padding(4)
         cbEditorial.Name = "cbEditorial"
         cbEditorial.Size = New Size(154, 27)
@@ -142,18 +147,19 @@ Partial Class FrmManga
         ' 
         ' nudRating
         ' 
-        nudRating.Font = New Font("Microsoft Tai Le", 11.25F)
-        nudRating.Location = New Point(662, 256)
+        nudRating.Font = New Font("Microsoft Tai Le", 11F)
+        nudRating.Location = New Point(662, 185)
         nudRating.Margin = New Padding(4)
         nudRating.Maximum = New Decimal(New Integer() {10, 0, 0, 0})
         nudRating.Name = "nudRating"
-        nudRating.Size = New Size(49, 27)
+        nudRating.Size = New Size(49, 26)
         nudRating.TabIndex = 8
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(33, 95)
+        Label1.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label1.Location = New Point(33, 76)
         Label1.Margin = New Padding(4, 0, 4, 0)
         Label1.Name = "Label1"
         Label1.Size = New Size(44, 19)
@@ -163,7 +169,8 @@ Partial Class FrmManga
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(33, 149)
+        Label2.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label2.Location = New Point(33, 133)
         Label2.Margin = New Padding(4, 0, 4, 0)
         Label2.Name = "Label2"
         Label2.Size = New Size(63, 19)
@@ -173,7 +180,8 @@ Partial Class FrmManga
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(33, 268)
+        Label3.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label3.Location = New Point(33, 247)
         Label3.Margin = New Padding(4, 0, 4, 0)
         Label3.Name = "Label3"
         Label3.Size = New Size(125, 19)
@@ -183,37 +191,41 @@ Partial Class FrmManga
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(33, 214)
+        Label4.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label4.Location = New Point(33, 190)
         Label4.Margin = New Padding(4, 0, 4, 0)
         Label4.Name = "Label4"
-        Label4.Size = New Size(51, 19)
+        Label4.Size = New Size(55, 19)
         Label4.TabIndex = 11
-        Label4.Text = "Genre"
+        Label4.Text = "Genre:"
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(578, 264)
+        Label5.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label5.Location = New Point(578, 188)
         Label5.Margin = New Padding(4, 0, 4, 0)
         Label5.Name = "Label5"
-        Label5.Size = New Size(55, 19)
+        Label5.Size = New Size(59, 19)
         Label5.TabIndex = 16
-        Label5.Text = "Rating"
+        Label5.Text = "Rating:"
         ' 
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(578, 210)
+        Label6.Location = New Point(578, 191)
         Label6.Margin = New Padding(4, 0, 4, 0)
         Label6.Name = "Label6"
         Label6.Size = New Size(47, 19)
         Label6.TabIndex = 15
         Label6.Text = "Price:"
+        Label6.Visible = False
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(578, 145)
+        Label7.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label7.Location = New Point(578, 130)
         Label7.Margin = New Padding(4, 0, 4, 0)
         Label7.Name = "Label7"
         Label7.Size = New Size(71, 19)
@@ -223,7 +235,8 @@ Partial Class FrmManga
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Location = New Point(578, 91)
+        Label8.Font = New Font("Microsoft Tai Le", 11F, FontStyle.Bold)
+        Label8.Location = New Point(578, 72)
         Label8.Margin = New Padding(4, 0, 4, 0)
         Label8.Name = "Label8"
         Label8.Size = New Size(67, 19)
@@ -233,14 +246,16 @@ Partial Class FrmManga
         ' btnDeleteManga
         ' 
         btnDeleteManga.BackColor = SystemColors.ActiveCaptionText
+        btnDeleteManga.Cursor = Cursors.Hand
         btnDeleteManga.FlatAppearance.BorderSize = 0
-        btnDeleteManga.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        btnDeleteManga.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnDeleteManga.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         btnDeleteManga.FlatStyle = FlatStyle.Flat
         btnDeleteManga.ForeColor = SystemColors.ControlLightLight
-        btnDeleteManga.Location = New Point(1046, 141)
+        btnDeleteManga.Location = New Point(1046, 81)
         btnDeleteManga.Margin = New Padding(4)
         btnDeleteManga.Name = "btnDeleteManga"
-        btnDeleteManga.Size = New Size(105, 58)
+        btnDeleteManga.Size = New Size(105, 38)
         btnDeleteManga.TabIndex = 17
         btnDeleteManga.Text = "Delete"
         btnDeleteManga.UseVisualStyleBackColor = False
@@ -248,14 +263,16 @@ Partial Class FrmManga
         ' btnGetStatsManga
         ' 
         btnGetStatsManga.BackColor = SystemColors.ActiveCaptionText
+        btnGetStatsManga.Cursor = Cursors.Hand
         btnGetStatsManga.FlatAppearance.BorderSize = 0
-        btnGetStatsManga.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        btnGetStatsManga.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnGetStatsManga.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         btnGetStatsManga.FlatStyle = FlatStyle.Flat
         btnGetStatsManga.ForeColor = SystemColors.ControlLightLight
-        btnGetStatsManga.Location = New Point(1046, 225)
+        btnGetStatsManga.Location = New Point(1046, 147)
         btnGetStatsManga.Margin = New Padding(4)
         btnGetStatsManga.Name = "btnGetStatsManga"
-        btnGetStatsManga.Size = New Size(105, 58)
+        btnGetStatsManga.Size = New Size(105, 38)
         btnGetStatsManga.TabIndex = 18
         btnGetStatsManga.Text = "Get Stats"
         btnGetStatsManga.UseVisualStyleBackColor = False
@@ -264,10 +281,10 @@ Partial Class FrmManga
         ' 
         lstvDataManga.Columns.AddRange(New ColumnHeader() {ColumnHeader1, ColumnHeader2, ColumnHeader3, ColumnHeader4, ColumnHeader5, ColumnHeader6, ColumnHeader7, ColumnHeader8})
         lstvDataManga.FullRowSelect = True
-        lstvDataManga.Location = New Point(344, 313)
+        lstvDataManga.Location = New Point(364, 304)
         lstvDataManga.Margin = New Padding(4)
         lstvDataManga.Name = "lstvDataManga"
-        lstvDataManga.Size = New Size(847, 281)
+        lstvDataManga.Size = New Size(856, 267)
         lstvDataManga.TabIndex = 19
         lstvDataManga.UseCompatibleStateImageBehavior = False
         lstvDataManga.View = View.Details
@@ -312,19 +329,19 @@ Partial Class FrmManga
         ' 
         ' txtReviewManga
         ' 
-        txtReviewManga.Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Regular, GraphicsUnit.Point, CByte(0))
-        txtReviewManga.Location = New Point(13, 358)
+        txtReviewManga.Font = New Font("Microsoft Tai Le", 9.75F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
+        txtReviewManga.Location = New Point(28, 373)
         txtReviewManga.Margin = New Padding(4)
         txtReviewManga.Multiline = True
         txtReviewManga.Name = "txtReviewManga"
-        txtReviewManga.Size = New Size(294, 216)
+        txtReviewManga.Size = New Size(317, 188)
         txtReviewManga.TabIndex = 20
         txtReviewManga.Text = "Title of Manga:" & vbCrLf & vbCrLf & "Review:"
         ' 
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(27, 335)
+        Label9.Location = New Point(32, 350)
         Label9.Margin = New Padding(4, 0, 4, 0)
         Label9.Name = "Label9"
         Label9.Size = New Size(92, 19)
@@ -334,11 +351,13 @@ Partial Class FrmManga
         ' SaveReviewManga
         ' 
         SaveReviewManga.BackColor = SystemColors.ActiveCaptionText
+        SaveReviewManga.Cursor = Cursors.Hand
         SaveReviewManga.FlatAppearance.BorderSize = 0
-        SaveReviewManga.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        SaveReviewManga.FlatAppearance.MouseDownBackColor = Color.Transparent
+        SaveReviewManga.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         SaveReviewManga.FlatStyle = FlatStyle.Flat
         SaveReviewManga.ForeColor = SystemColors.ControlLightLight
-        SaveReviewManga.Location = New Point(13, 588)
+        SaveReviewManga.Location = New Point(23, 569)
         SaveReviewManga.Margin = New Padding(4)
         SaveReviewManga.Name = "SaveReviewManga"
         SaveReviewManga.Size = New Size(96, 29)
@@ -349,11 +368,13 @@ Partial Class FrmManga
         ' btnExportManga
         ' 
         btnExportManga.BackColor = SystemColors.ActiveCaptionText
+        btnExportManga.Cursor = Cursors.Hand
         btnExportManga.FlatAppearance.BorderSize = 0
-        btnExportManga.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        btnExportManga.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnExportManga.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         btnExportManga.FlatStyle = FlatStyle.Flat
         btnExportManga.ForeColor = SystemColors.ControlLightLight
-        btnExportManga.Location = New Point(1088, 607)
+        btnExportManga.Location = New Point(1118, 581)
         btnExportManga.Margin = New Padding(4)
         btnExportManga.Name = "btnExportManga"
         btnExportManga.Size = New Size(96, 29)
@@ -364,8 +385,10 @@ Partial Class FrmManga
         ' btnLoadData
         ' 
         btnLoadData.BackColor = SystemColors.ActiveCaptionText
+        btnLoadData.Cursor = Cursors.Hand
         btnLoadData.FlatAppearance.BorderSize = 0
-        btnLoadData.FlatAppearance.MouseDownBackColor = Color.DarkOrchid
+        btnLoadData.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnLoadData.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
         btnLoadData.FlatStyle = FlatStyle.Flat
         btnLoadData.ForeColor = SystemColors.ControlLightLight
         btnLoadData.Location = New Point(23, 15)
@@ -376,12 +399,30 @@ Partial Class FrmManga
         btnLoadData.Text = "Load Data"
         btnLoadData.UseVisualStyleBackColor = False
         ' 
+        ' btnSimilarMangas
+        ' 
+        btnSimilarMangas.BackColor = SystemColors.ActiveCaptionText
+        btnSimilarMangas.Cursor = Cursors.Hand
+        btnSimilarMangas.FlatAppearance.BorderSize = 0
+        btnSimilarMangas.FlatAppearance.MouseDownBackColor = Color.Transparent
+        btnSimilarMangas.FlatAppearance.MouseOverBackColor = Color.DarkOrchid
+        btnSimilarMangas.FlatStyle = FlatStyle.Flat
+        btnSimilarMangas.ForeColor = SystemColors.ControlLightLight
+        btnSimilarMangas.Location = New Point(1046, 213)
+        btnSimilarMangas.Margin = New Padding(4)
+        btnSimilarMangas.Name = "btnSimilarMangas"
+        btnSimilarMangas.Size = New Size(105, 48)
+        btnSimilarMangas.TabIndex = 25
+        btnSimilarMangas.Text = "Similar Mangas"
+        btnSimilarMangas.UseVisualStyleBackColor = False
+        ' 
         ' FrmManga
         ' 
         AutoScaleDimensions = New SizeF(9F, 19F)
         AutoScaleMode = AutoScaleMode.Font
         BackColor = SystemColors.ControlLightLight
-        ClientSize = New Size(1214, 660)
+        ClientSize = New Size(1233, 619)
+        Controls.Add(btnSimilarMangas)
         Controls.Add(btnLoadData)
         Controls.Add(btnExportManga)
         Controls.Add(SaveReviewManga)
@@ -409,6 +450,7 @@ Partial Class FrmManga
         Controls.Add(btnSaveManga)
         Font = New Font("Microsoft Tai Le", 11.25F, FontStyle.Bold, GraphicsUnit.Point, CByte(0))
         FormBorderStyle = FormBorderStyle.FixedSingle
+        Icon = CType(resources.GetObject("$this.Icon"), Icon)
         Margin = New Padding(4)
         Name = "FrmManga"
         StartPosition = FormStartPosition.CenterScreen
@@ -451,4 +493,5 @@ Partial Class FrmManga
     Friend WithEvents ColumnHeader7 As ColumnHeader
     Friend WithEvents ColumnHeader8 As ColumnHeader
     Friend WithEvents btnLoadData As Button
+    Friend WithEvents btnSimilarMangas As Button
 End Class
