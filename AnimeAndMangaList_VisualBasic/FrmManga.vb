@@ -231,17 +231,6 @@ Public Class FrmManga
         Process.Start(New ProcessStartInfo(filePath) With {.UseShellExecute = True})
     End Sub
 
-    Private Sub ClearInputs()
-        txtAuthor.Text = ""
-        txtChapters.Text = ""
-        cbGenre.Text = ""
-        txtPrice.Text = ""
-        txtTitle.Text = ""
-        nudRating.Value = 0
-        dtpDate.Value = DateTime.Now
-        cbEditorial.Text = ""
-    End Sub
-
     Private Sub btnDeleteManga_Click(sender As Object, e As EventArgs) Handles btnDeleteManga.Click
         If lstvDataManga.SelectedItems.Count > 0 Then
             Dim numberItemsSelected As Integer = lstvDataManga.SelectedItems.Count
@@ -376,7 +365,14 @@ Public Class FrmManga
             item.SubItems.Add(mangas(emptyIndex).Price.ToString())
 
             lstvDataManga.Items.Add(item)
-            ClearInputs()
+            txtAuthor.Text = ""
+            txtChapters.Text = ""
+            cbGenre.Text = ""
+            txtPrice.Text = ""
+            txtTitle.Text = ""
+            nudRating.Value = 0
+            dtpDate.Value = DateTime.Now
+            cbEditorial.Text = ""
         Catch ex As Exception
             MessageBox.Show("An error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try

@@ -126,22 +126,19 @@ Public Class FrmAnime
             item.SubItems.Add(animes(emptyIndex).Rating.ToString())
 
             lstvDataAnime.Items.Add(item)
-            ClearInputsAnime()
+            txtAuthorAnime.Text = ""
+            txtChaptersAnime.Text = ""
+            cbPlataform.Text = ""
+            txtProductionStudio.Text = ""
+            txtTitleAnime.Text = ""
+            nudRatingAnime.Value = 0
+            dtpDateAnime.Value = DateTime.Now
         Catch ex As Exception
             MessageBox.Show("An error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
     End Sub
 
 
-    Private Sub ClearInputsAnime()
-        txtAuthorAnime.Text = ""
-        txtChaptersAnime.Text = ""
-        cbPlataform.Text = ""
-        txtProductionStudio.Text = ""
-        txtTitleAnime.Text = ""
-        nudRatingAnime.Value = 0
-        dtpDateAnime.Value = DateTime.Now
-    End Sub
 
     Private Sub btnDeleteAnime_Click(sender As Object, e As EventArgs) Handles btnDeleteAnime.Click
         If lstvDataAnime.SelectedItems.Count > 0 Then
