@@ -11,7 +11,7 @@ Public Class FrmManga
 
     Public Sub New()
         InitializeComponent()
-        mangas = New Manga(49) {}
+        mangas = New Manga(29) {}
     End Sub
     Private Sub btnLoadData_Click(sender As Object, e As EventArgs) Handles btnLoadData.Click
         Using openFileDialog As New OpenFileDialog()
@@ -231,7 +231,88 @@ Public Class FrmManga
         Process.Start(New ProcessStartInfo(filePath) With {.UseShellExecute = True})
     End Sub
 
-    Private Sub btnSaveManga_Click(ByVal sender As Object, ByVal e As EventArgs)
+    Private Sub ClearInputs()
+        txtAuthor.Text = ""
+        txtChapters.Text = ""
+        cbGenre.Text = ""
+        txtPrice.Text = ""
+        txtTitle.Text = ""
+        nudRating.Value = 0
+        dtpDate.Value = DateTime.Now
+        cbEditorial.Text = ""
+    End Sub
+
+    Private Sub btnDeleteManga_Click(sender As Object, e As EventArgs) Handles btnDeleteManga.Click
+        If lstvDataManga.SelectedItems.Count > 0 Then
+            Dim numberItemsSelected As Integer = lstvDataManga.SelectedItems.Count
+            Dim selectedIndices(numberItemsSelected - 1) As Integer
+
+            For i As Integer = 0 To numberItemsSelected - 1
+                selectedIndices(i) = lstvDataManga.SelectedItems(i).Index
+            Next
+
+            Array.Sort(selectedIndices)
+            Array.Reverse(selectedIndices)
+
+            For i As Integer = 0 To numberItemsSelected - 1
+                lstvDataManga.Items.RemoveAt(selectedIndices(i))
+            Next
+
+            Dim updatedMangas(mangas.Length) As Manga
+            Dim newIndex As Integer = 0
+
+            For i As Integer = 0 To mangas.Length - 1
+                If Array.IndexOf(selectedIndices, i) = -1 Then
+                    updatedMangas(newIndex) = mangas(i)
+                    newIndex += 1
+                End If
+            Next
+
+            mangas = updatedMangas
+
+            MessageBox.Show("Selected mangas have been deleted.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Else
+            MessageBox.Show("Please select a manga to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
+        End If
+
+    End Sub
+
+    Private Sub btnGetStatsManga_Click(sender As Object, e As EventArgs) Handles btnGetStatsManga.Click
+        MessageBox.Show(Manga.GetStatsManga(mangas), "Stats", MessageBoxButtons.OK, MessageBoxIcon.Information)
+
+    End Sub
+
+    Private Sub SaveReviewManga_Click(sender As Object, e As EventArgs) Handles SaveReviewManga.Click
+        Try
+            Dim saveFileDialog1 As New SaveFileDialog()
+
+            saveFileDialog1.Title = "Save Review File"
+            saveFileDialog1.DefaultExt = "txt"
+            saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*"
+
+            If saveFileDialog1.ShowDialog() = DialogResult.OK Then
+                Dim filePath As String = saveFileDialog1.FileName
+
+                File.WriteAllText(filePath, txtReviewManga.Text)
+
+                MessageBox.Show("Review saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            End If
+        Catch ex As Exception
+            MessageBox.Show("An error occurred while saving the review: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Try
+
+    End Sub
+
+    Private Sub btnSimilarMangas_Click(sender As Object, e As EventArgs) Handles btnSimilarMangas.Click
+        If lstvDataManga.SelectedIndices.Count > 0 Then
+            MessageBox.Show(mangas(lstvDataManga.SelectedIndices(0)).ShowSimilarWorks(), "Similar Mangas", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Else
+            MessageBox.Show("No manga has been selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End If
+
+    End Sub
+
+    Private Sub btnSaveManga_Click_1(sender As Object, e As EventArgs) Handles btnSaveManga.Click
         Try
             If String.IsNullOrWhiteSpace(txtTitle.Text) OrElse
            String.IsNullOrWhiteSpace(txtAuthor.Text) OrElse
@@ -299,87 +380,5 @@ Public Class FrmManga
         Catch ex As Exception
             MessageBox.Show("An error occurred: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Try
-    End Sub
-
-    ' METODO QUE NO RECIBE NI REGRESA
-    Private Sub ClearInputs()
-        txtAuthor.Text = ""
-        txtChapters.Text = ""
-        cbGenre.Text = ""
-        txtPrice.Text = ""
-        txtTitle.Text = ""
-        nudRating.Value = 0
-        dtpDate.Value = DateTime.Now
-        cbEditorial.Text = ""
-    End Sub
-
-    Private Sub btnDeleteManga_Click(sender As Object, e As EventArgs) Handles btnDeleteManga.Click
-        If lstvDataManga.SelectedItems.Count > 0 Then
-            Dim numberItemsSelected As Integer = lstvDataManga.SelectedItems.Count
-            Dim selectedIndices(numberItemsSelected - 1) As Integer
-
-            For i As Integer = 0 To numberItemsSelected - 1
-                selectedIndices(i) = lstvDataManga.SelectedItems(i).Index
-            Next
-
-            Array.Sort(selectedIndices)
-            Array.Reverse(selectedIndices)
-
-            For i As Integer = 0 To numberItemsSelected - 1
-                lstvDataManga.Items.RemoveAt(selectedIndices(i))
-            Next
-
-            Dim updatedMangas(mangas.Length - numberItemsSelected - 1) As Manga
-            Dim newIndex As Integer = 0
-
-            For i As Integer = 0 To mangas.Length - 1
-                If Array.IndexOf(selectedIndices, i) = -1 Then
-                    updatedMangas(newIndex) = mangas(i)
-                    newIndex += 1
-                End If
-            Next
-
-            mangas = updatedMangas
-
-            MessageBox.Show("Selected mangas have been deleted.", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Else
-            MessageBox.Show("Please select a manga to delete.", "No Selection", MessageBoxButtons.OK, MessageBoxIcon.Warning)
-        End If
-
-    End Sub
-
-    Private Sub btnGetStatsManga_Click(sender As Object, e As EventArgs) Handles btnGetStatsManga.Click
-        MessageBox.Show(Manga.GetStatsManga(mangas), "Stats", MessageBoxButtons.OK, MessageBoxIcon.Information)
-
-    End Sub
-
-    Private Sub SaveReviewManga_Click(sender As Object, e As EventArgs) Handles SaveReviewManga.Click
-        Try
-            Dim saveFileDialog1 As New SaveFileDialog()
-
-            saveFileDialog1.Title = "Save Review File"
-            saveFileDialog1.DefaultExt = "txt"
-            saveFileDialog1.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*"
-
-            If saveFileDialog1.ShowDialog() = DialogResult.OK Then
-                Dim filePath As String = saveFileDialog1.FileName
-
-                File.WriteAllText(filePath, txtReviewManga.Text)
-
-                MessageBox.Show("Review saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information)
-            End If
-        Catch ex As Exception
-            MessageBox.Show("An error occurred while saving the review: " & ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End Try
-
-    End Sub
-
-    Private Sub btnSimilarMangas_Click(sender As Object, e As EventArgs) Handles btnSimilarMangas.Click
-        If lstvDataManga.SelectedIndices.Count > 0 Then
-            MessageBox.Show(mangas(lstvDataManga.SelectedIndices(0)).ShowSimilarWorks(), "Similar Mangas", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        Else
-            MessageBox.Show("No manga has been selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
-        End If
-
     End Sub
 End Class

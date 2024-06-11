@@ -10,7 +10,7 @@ Public Class FrmAnime
 
     Public Sub New()
         InitializeComponent()
-        animes = New Anime(49) {}
+        animes = New Anime(29) {}
     End Sub
     Private Sub btnLoadDataAnime_Click(sender As Object, e As EventArgs) Handles btnLoadDataAnime.Click
         Using openFileDialog As New OpenFileDialog()
@@ -159,7 +159,7 @@ Public Class FrmAnime
                 lstvDataAnime.Items.RemoveAt(selectedIndices(i))
             Next
 
-            Dim updatedAnimes As Anime() = New Anime(animes.Length - numberItemsSelected - 1) {}
+            Dim updatedAnimes As Anime() = New Anime(animes.Length) {}
 
             Dim newIndex As Integer = 0
             For i As Integer = 0 To animes.Length - 1
@@ -367,9 +367,9 @@ Public Class FrmAnime
 
     Private Sub btnSimilarAnimes_Click(sender As Object, e As EventArgs) Handles btnSimilarAnimes.Click
         If lstvDataAnime.SelectedIndices.Count > 0 Then
-            MessageBox.Show(animes(lstvDataAnime.SelectedIndices(0)).ShowSimilarWorks(), "Mangas Similares", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            MessageBox.Show(animes(lstvDataAnime.SelectedIndices(0)).ShowSimilarWorks(), "Animes Similares", MessageBoxButtons.OK, MessageBoxIcon.Information)
         Else
-            MessageBox.Show("No se ha seleccionado ningún manga.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
+            MessageBox.Show("No manga has been selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error)
         End If
 
     End Sub

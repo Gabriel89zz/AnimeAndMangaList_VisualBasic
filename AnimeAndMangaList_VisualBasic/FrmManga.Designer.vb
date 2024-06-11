@@ -109,6 +109,7 @@ Partial Class FrmManga
         ' 
         cbGenre.Font = New Font("Microsoft Tai Le", 11F)
         cbGenre.FormattingEnabled = True
+        cbGenre.Items.AddRange(New Object() {"Shonen", "Seinen", "Comedy", "Sci-Fi", "Romcom", "Isekai"})
         cbGenre.Location = New Point(225, 184)
         cbGenre.Margin = New Padding(4)
         cbGenre.Name = "cbGenre"
